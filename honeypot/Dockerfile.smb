@@ -1,0 +1,6 @@
+FROM ubuntu:22.04
+RUN apt update && apt install -y samba && \
+    echo "[share]\npath=/srv/share\nbrowseable=yes\nread only=no\nguest ok=yes" >> /etc/samba/smb.conf && \
+    mkdir -p /srv/share
+EXPOSE 445 139
+CMD ["smbd", "-FS"]
