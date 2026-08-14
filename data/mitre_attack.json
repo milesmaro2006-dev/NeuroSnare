@@ -1,0 +1,15 @@
+{
+  "Port_Scan": "T1046",
+  "SYN_Flood": "T1498",
+  "Brute_Force_Attempt": "T1110",
+  "Web_Attack": "T1190",
+  "SQL_Injection": "T1190",
+  "Command_Injection": "T1059",
+  "Path_Traversal": "T1006",
+  "UDP_Flood": "T1498",
+  "ICMP_Echo_Attack": "T1498",
+  "XSS_Attempt": "T1189",
+  "DNS_Attack": "T1568",
+  "SMB_Attack": "T1021",
+  "Unknown_Attack": "T0000"
+}
