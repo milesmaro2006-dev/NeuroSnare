@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  ssh:
+    build: . -f Dockerfile.ssh
+    container_name: honeypot-ssh
+    network_mode: host
+    restart: unless-stopped
+  web:
+    build: . -f Dockerfile.web
+    container_name: honeypot-web
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./scripts/tracker.js:/var/www/html/tracker.js
+  ftp:
+    build: . -f Dockerfile.ftp
+    container_name: honeypot-ftp
+    network_mode: host
+    restart: unless-stopped
+  smb:
+    build: . -f Dockerfile.smb
+    container_name: honeypot-smb
+    network_mode: host
+    restart: unless-stopped
