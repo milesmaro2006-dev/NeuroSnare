@@ -1,0 +1,26 @@
+FROM ubuntu:22.04
+RUN apt update && apt install -y apache2 nginx python3 python3-pip && \
+    pip3 install flask flask-cors
+
+# إعداد Apache
+RUN echo "Listen 80" > /etc/apache2/ports.conf && \
+    echo "Listen 8080" >> /etc/apache2/ports.conf
+
+# إعداد صفحة ويب وهمية مع كود التعقب
+RUN echo '<!DOCTYPE html><html><head><title>Honeypot</title></head><body>' > /var/www/html/index.html
+RUN echo '<h1>🔒 Corporate Login Portal</h1>' >> /var/www/html/index.html
+RUN echo '<p>Please login to continue...</p>' >> /var/www/html/index.html
+RUN echo '<form><input type="text" placeholder="Username"><input type="password" placeholder="Password"><button>Login</button></form>' >> /var/www/html/index.html
+RUN echo '<script src="/tracker.js"></script>' >> /var/www/html/index.html
+RUN echo '</body></html>' >> /var/www/html/index.html
+
+# إعداد Nginx
+RUN echo "server { listen 8081; root /var/www/nginx; }" > /etc/nginx/sites-available/default
+RUN mkdir -p /var/www/nginx
+RUN echo '<h1>Nginx Honeypot</h1><script src="/tracker.js"></script>' > /var/www/nginx/index.html
+
+# سكربت Flask لاستقبال بصمة المتصفح
+COPY scripts/honeypot_logger.py /opt/honeypot_logger.py
+
+EXPOSE 80 8080 8081 443
+CMD service apache2 start && nginx -g "daemon off;" && python3 /opt/honeypot_logger.py &
