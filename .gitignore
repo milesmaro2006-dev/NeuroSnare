@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Models
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.onnx
+
+# Logs
+logs/*.log
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+*.pid
+*.sock
+
+# Data (except sample)
+data/*.csv
+!data/training_data.csv
+!data/mitre_attack.json
+
+# Reports
+reports/*.pdf
+!reports/.gitkeep
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Environment
+.env
+config.local.py
+
+# OS
+Thumbs.db
+Desktop.ini
