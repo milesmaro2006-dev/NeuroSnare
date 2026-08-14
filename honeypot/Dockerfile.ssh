@@ -1,0 +1,7 @@
+FROM ubuntu:22.04
+RUN apt update && apt install -y openssh-server && \
+    echo "root:password" | chpasswd && \
+    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    echo "MaxAuthTries 2000" >> /etc/ssh/sshd_config
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
